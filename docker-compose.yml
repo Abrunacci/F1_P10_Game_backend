@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Docker/development/Dockerfile
+    command: bash ./scripts/start.sh
+    env_file:
+      - "Docker/development/env/public"
+      - "Docker/development/env/private"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    networks:
+      - p10_network
+
+volumes:
+  api:
+    driver: local
+
+networks:
+  p10_network:
+    driver: bridge
